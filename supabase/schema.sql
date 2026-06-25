@@ -120,3 +120,13 @@ create policy "Classroom MVP public delete expenses" on public.expenses for dele
 create policy "Classroom MVP public read expense splits" on public.expense_splits for select using (true);
 create policy "Classroom MVP public insert expense splits" on public.expense_splits for insert with check (true);
 create policy "Classroom MVP public delete expense splits" on public.expense_splits for delete using (true);
+
+-- Allow the browser publishable/anon key to use these RLS-protected tables.
+-- RLS policies above still control which rows and operations are allowed.
+grant select, insert, update, delete on public.trips to anon;
+grant select, insert, update, delete on public.trip_members to anon;
+grant select, insert, update, delete on public.proposals to anon;
+grant select, insert, delete on public.proposal_votes to anon;
+grant select, insert, update, delete on public.itinerary_items to anon;
+grant select, insert, update, delete on public.expenses to anon;
+grant select, insert, delete on public.expense_splits to anon;

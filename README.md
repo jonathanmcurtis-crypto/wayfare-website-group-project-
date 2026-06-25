@@ -55,6 +55,34 @@ Do **not** put the secret key or service role key in `index.html`, `app.js`, or 
 
 The service role key bypasses Row Level Security and is only for trusted server-side code. Wayfare is currently a static frontend website, so it should only use the publishable/anon key.
 
+
+## Connect the static website to Supabase
+
+Wayfare uses the Supabase JavaScript client from a CDN, so there is still no build step and no framework. The app reads the shared trip ID from the URL, for example `?trip=<trip_id>`. If no trip ID is present, it creates the sample Barcelona trip in Supabase and updates the URL for sharing.
+
+### 1. Add your frontend config
+
+Open `index.html` and find the `WAYFARE_CONFIG` section near the bottom of the file. Replace the placeholder values with your Supabase project values:
+
+```html
+<script>
+  window.WAYFARE_CONFIG = {
+    SUPABASE_URL: 'https://YOUR-PROJECT-REF.supabase.co',
+    SUPABASE_PUBLISHABLE_KEY: 'YOUR-SUPABASE-PUBLISHABLE-OR-ANON-KEY'
+  };
+</script>
+```
+
+You can also use `config.example.js` as a safe template for the two values. Only use the publishable/anon key in browser code. Never use the secret/service role key in this static website.
+
+### 2. Open a shared trip link
+
+After the schema is installed and the config values are set, open `index.html` in a browser. If the URL does not include `?trip=<trip_id>`, Wayfare creates a sample trip in Supabase and changes the browser URL to include the new trip ID. Share that full URL with teammates so everyone loads the same Supabase-backed trip.
+
+### 3. Data storage behavior
+
+Supabase is the source of truth for trip data. The browser only uses `localStorage` to remember the last opened trip ID, not the trip details.
+
 ## Security note
 
 The current Supabase policies are for a classroom MVP. They allow anyone with the publishable key and a shared trip link to create, read, update, and delete data. Before using this app publicly, add Supabase Auth and replace these open policies with user-based policies.
