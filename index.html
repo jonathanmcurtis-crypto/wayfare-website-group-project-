@@ -18,12 +18,12 @@
     </nav>
     <section class="hero-grid" id="top">
       <div>
-        <p class="eyebrow">Static, private, browser-saved planning</p>
+        <p class="eyebrow">Static shared-link planning with Supabase</p>
         <h1>Plan the trip together, from first idea to final split.</h1>
-        <p class="hero-copy">Wayfare keeps group travel simple: create a trip, collect ideas, vote, schedule your days, and settle shared costs. No accounts, no servers, no build step.</p>
+        <p class="hero-copy">Wayfare keeps group travel simple: create a trip, collect ideas, vote, schedule your days, and settle shared costs. No accounts or build step required for this shared-link MVP.</p>
         <div class="hero-actions">
           <a class="button primary" href="#trip-form">Create or edit trip</a>
-          <button class="button ghost" id="blank-reset" type="button">Reset to blank state</button>
+          <button class="button ghost" id="blank-reset" type="button">Start a new sample trip</button>
         </div>
       </div>
       <aside class="trip-card" aria-live="polite">
@@ -31,6 +31,7 @@
         <h2 id="trip-title">No trip yet</h2>
         <p id="trip-meta">Create a trip to get started.</p>
         <div class="member-chips" id="member-chips"></div>
+        <p id="app-status" class="status" role="status" aria-live="polite"></p>
       </aside>
     </section>
   </header>
@@ -112,8 +113,16 @@
   </main>
 
   <footer>
-    <p>Wayfare is fully static. Your trip data stays in this browser via localStorage.</p>
+    <p>Wayfare is a static shared-link app. Trip data is saved in Supabase and opened with the trip ID in the URL.</p>
   </footer>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script>
+    // Use only your Supabase publishable/anon key here. Never use a service role or secret key in frontend code.
+    window.WAYFARE_CONFIG = {
+      SUPABASE_URL: 'https://vuschtjrsxmmzwdgtpvv.supabase.co',
+      SUPABASE_PUBLISHABLE_KEY: 'sb_publishable_8-XvFE55rddEzg5_vwI20Q_Rp5BGNqi'
+    };
+  </script>
   <script src="app.js"></script>
 </body>
 </html>

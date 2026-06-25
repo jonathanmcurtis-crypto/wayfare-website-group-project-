@@ -84,3 +84,6 @@ footer { color: var(--muted); padding: 0 clamp(1rem, 4vw, 4rem) 2rem; text-align
   .wide { grid-column: auto; }
   .check-grid { grid-template-columns: 1fr; }
 }
+.status { margin: 1rem 0 0; color: var(--muted); font-weight: 800; line-height: 1.45; }
+.status.success { color: var(--brand-dark); }
+.status.error { color: #a33a2d; }
